@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Thumbnail Generator</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="blue darken-3">
+    <div class="nav-wrapper container">
+      <a href="/" class="brand-logo">AI Thumbnail Generator</a>
+      <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <% if (currentUser) { %>
+          <li><a href="/generate">Generate</a></li>
+          <li><a href="/library">Library</a></li>
+          <li><span class="nav-user-name">Hi, <%= currentUser.name %></span></li>
+          <li><a href="/logout" class="waves-effect waves-light btn red darken-1">Logout</a></li>
+        <% } else { %>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register" class="waves-effect waves-light btn amber darken-2">Register</a></li>
+        <% } %>
+      </ul>
+    </div>
+  </nav>
+
+  <ul class="sidenav" id="mobile-nav">
+    <% if (currentUser) { %>
+      <li><div class="user-view blue darken-3 white-text"><span class="name">Hi, <%= currentUser.name %></span></div></li>
+      <li><a href="/generate"><i class="material-icons">auto_awesome</i>Generate</a></li>
+      <li><a href="/library"><i class="material-icons">photo_library</i>Library</a></li>
+      <li><a href="/logout"><i class="material-icons">logout</i>Logout</a></li>
+    <% } else { %>
+      <li><a href="/login"><i class="material-icons">login</i>Login</a></li>
+      <li><a href="/register"><i class="material-icons">person_add</i>Register</a></li>
+    <% } %>
+  </ul>
+
+  <main class="container page-content">
+    <% if (successMessages && successMessages.length > 0) { %>
+      <% successMessages.forEach((message) => { %>
+        <div class="card-panel green lighten-4 green-text text-darken-4 flash-message"><%= message %></div>
+      <% }); %>
+    <% } %>
+
+    <% if (errorMessages && errorMessages.length > 0) { %>
+      <% errorMessages.forEach((message) => { %>
+        <div class="card-panel red lighten-4 red-text text-darken-4 flash-message"><%= message %></div>
+      <% }); %>
+    <% } %>

@@ -1,0 +1,61 @@
+<%- include('partials/header') %>
+
+<section class="hero-section center-align">
+  <div class="row">
+    <div class="col s12 m10 offset-m1 l8 offset-l2">
+      <h1 class="blue-text text-darken-3">Generate Better YouTube Thumbnails with AI</h1>
+      <p class="flow-text grey-text text-darken-2">
+        Describe your video idea, choose a visual style, and let DALL-E 3 create a thumbnail concept you can save to your library.
+      </p>
+      <div class="hero-actions">
+        <% if (currentUser) { %>
+          <a href="/generate" class="waves-effect waves-light btn-large blue darken-3">
+            <i class="material-icons left">auto_awesome</i>Start Generating
+          </a>
+          <a href="/library" class="waves-effect waves-light btn-large white blue-text text-darken-3">
+            <i class="material-icons left">photo_library</i>View Library
+          </a>
+        <% } else { %>
+          <a href="/register" class="waves-effect waves-light btn-large amber darken-2">
+            <i class="material-icons left">person_add</i>Create Account
+          </a>
+          <a href="/login" class="waves-effect waves-light btn-large blue darken-3">
+            <i class="material-icons left">login</i>Login
+          </a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="row feature-row">
+  <div class="col s12 m4">
+    <div class="card hoverable">
+      <div class="card-content center-align">
+        <i class="material-icons large amber-text text-darken-2">edit</i>
+        <span class="card-title">Write a Prompt</span>
+        <p>Tell the app what your video is about in up to 500 characters.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m4">
+    <div class="card hoverable">
+      <div class="card-content center-align">
+        <i class="material-icons large blue-text text-darken-3">palette</i>
+        <span class="card-title">Pick a Style</span>
+        <p>Choose Minimalist, Bold, Cinematic, or Gaming for your thumbnail.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m4">
+    <div class="card hoverable">
+      <div class="card-content center-align">
+        <i class="material-icons large green-text text-darken-2">save_alt</i>
+        <span class="card-title">Save Results</span>
+        <p>Generated thumbnails are stored securely in your personal library.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

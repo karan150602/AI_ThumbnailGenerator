@@ -1,0 +1,90 @@
+body {
+  background: #f5f7fb;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.page-content {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.brand-logo {
+  font-size: 1.4rem;
+}
+
+.nav-user-name {
+  display: inline-block;
+  padding: 0 12px;
+}
+
+.hero-section {
+  padding: 3rem 0 2rem;
+}
+
+.hero-actions a {
+  margin: 0.5rem;
+}
+
+.feature-row .card {
+  min-height: 220px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.loading-spinner {
+  margin-top: 2rem;
+}
+
+.generated-result img,
+.thumbnail-card img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.generated-result img {
+  max-height: 520px;
+}
+
+.thumbnail-card img {
+  height: 220px;
+}
+
+.thumbnail-prompt {
+  clear: both;
+  margin-top: 2rem;
+  min-height: 4.5rem;
+}
+
+.section-heading {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.empty-state {
+  padding: 3rem 1rem;
+}
+
+.flash-message {
+  margin-top: 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .brand-logo {
+    font-size: 1.1rem;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

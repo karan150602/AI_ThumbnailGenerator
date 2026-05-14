@@ -1,0 +1,80 @@
+<%- include('partials/header') %>
+
+<div class="row">
+  <div class="col s12 l8 offset-l2">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Generate a Thumbnail</span>
+        <p class="grey-text text-darken-1">Enter a clear video idea and select the style you want DALL-E 3 to follow.</p>
+
+        <form id="generate-form" action="/generate" method="POST" class="generate-form">
+          <div class="input-field">
+            <textarea
+              id="promptText"
+              name="promptText"
+              class="materialize-textarea"
+              maxlength="500"
+              data-length="500"
+              required><%= promptText || '' %></textarea>
+            <label for="promptText" class="<%= promptText ? 'active' : '' %>">Thumbnail prompt</label>
+            <span id="prompt-count" class="helper-text">0 / 500 characters</span>
+          </div>
+
+          <div class="input-field">
+            <select id="style" name="style" required>
+              <% styles.forEach((styleOption) => { %>
+                <option value="<%= styleOption %>" <%= selectedStyle === styleOption ? 'selected' : '' %>><%= styleOption %></option>
+              <% }); %>
+            </select>
+            <label for="style">Thumbnail Style</label>
+          </div>
+
+          <button id="generate-button" type="submit" class="btn-large waves-effect waves-light blue darken-3">
+            Generate Thumbnail
+            <i class="material-icons right">auto_awesome</i>
+          </button>
+
+          <div id="loading-spinner" class="center-align loading-spinner hide">
+            <div class="preloader-wrapper big active">
+              <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                  <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+            </div>
+            <p class="grey-text text-darken-1">Generating your thumbnail...</p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <% if (imageUrl) { %>
+      <div class="card generated-result">
+        <div class="card-image">
+          <img src="<%= imageUrl %>" alt="Generated AI thumbnail">
+        </div>
+        <div class="card-content">
+          <span class="card-title">Your Generated Thumbnail</span>
+          <p><strong>Prompt:</strong> <%= promptText %></p>
+          <p><strong>Style:</strong> <%= selectedStyle %></p>
+        </div>
+        <div class="card-action">
+          <a href="<%= imageUrl %>" target="_blank" rel="noopener" download class="blue-text text-darken-3">
+            <i class="material-icons left">file_download</i>Download Image
+          </a>
+          <a href="/library" class="blue-text text-darken-3">
+            <i class="material-icons left">photo_library</i>View Library
+          </a>
+        </div>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

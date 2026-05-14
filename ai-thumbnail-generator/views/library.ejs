@@ -1,0 +1,50 @@
+<%- include('partials/header') %>
+
+<div class="row">
+  <div class="col s12">
+    <div class="section-heading">
+      <h4 class="blue-text text-darken-3">Your Thumbnail Library</h4>
+      <a href="/generate" class="waves-effect waves-light btn blue darken-3">
+        <i class="material-icons left">add</i>Generate New
+      </a>
+    </div>
+  </div>
+</div>
+
+<% if (!thumbnails || thumbnails.length === 0) { %>
+  <div class="card-panel center-align empty-state">
+    <i class="material-icons large grey-text">photo_library</i>
+    <h5>No thumbnails yet</h5>
+    <p class="grey-text text-darken-1">Generate your first thumbnail to start building your library.</p>
+    <a href="/generate" class="waves-effect waves-light btn blue darken-3">Generate a Thumbnail</a>
+  </div>
+<% } else { %>
+  <div class="row">
+    <% thumbnails.forEach((thumbnail) => { %>
+      <div class="col s12 m6 l4">
+        <div class="card thumbnail-card hoverable">
+          <div class="card-image">
+            <img src="<%= thumbnail.imageUrl %>" alt="AI thumbnail for <%= thumbnail.promptText %>">
+          </div>
+          <div class="card-content">
+            <span class="new badge blue darken-3" data-badge-caption=""><%= thumbnail.style %></span>
+            <p class="thumbnail-prompt"><%= thumbnail.promptText %></p>
+            <p class="grey-text text-darken-1">
+              <i class="material-icons tiny">event</i>
+              <%= thumbnail.createdAt.toLocaleDateString() %>
+            </p>
+          </div>
+          <div class="card-action">
+            <form action="/library/<%= thumbnail._id %>?_method=DELETE" method="POST" class="delete-thumbnail-form">
+              <button type="submit" class="btn-small waves-effect waves-light red darken-1">
+                <i class="material-icons left">delete</i>Delete
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+<% } %>
+
+<%- include('partials/footer') %>
