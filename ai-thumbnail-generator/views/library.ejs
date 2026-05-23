@@ -4,9 +4,17 @@
   <div class="col s12">
     <div class="section-heading">
       <h4 class="blue-text text-darken-3">Your Thumbnail Library</h4>
-      <a href="/generate" class="waves-effect waves-light btn blue darken-3">
-        <i class="material-icons left">add</i>Generate New
-      </a>
+        <div style="margin: 0.5rem 0 1.5rem;">
+          <a href="/library" class="btn-flat waves-effect <%= !showFavourites ? 'blue-text text-darken-3 grey lighten-3' : 'grey-text' %>">
+            <i class="material-icons left">photo_library</i>All
+          </a>
+          <a href="/library?filter=favourites" class="btn-flat waves-effect <%= showFavourites ? 'amber-text text-darken-2 grey lighten-3' : 'grey-text' %>">
+            <i class="material-icons left">star</i>Favourites
+          </a>
+          <a href="/generate" class="waves-effect waves-light btn blue darken-3">
+            <i class="material-icons left">add</i>Generate New
+          </a>
+        </div>
     </div>
   </div>
 </div>
