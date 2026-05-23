@@ -89,6 +89,26 @@ router.get('/library', isAuthenticated, async (req, res) => {
   }
 });
 
+// ⭐ NEW: Toggle favourite status for a thumbnail owned by the current user.
+router.post('/library/:id/favourite', isAuthenticated, async (req, res) => {
+  try {
+    const thumbnail = await Thumbnail.findOne({
+      _id: req.params.id,
+      userId: req.user._id
+    });
+
+    if (thumbnail) {
+      thumbnail.isFavourite = !thumbnail.isFavourite;
+      await thumbnail.save();
+    }
+  } catch (error) {
+    console.error('Favourite toggle failed:', error);
+  }
+
+  const referer = req.get('Referer') || '/library';
+  res.redirect(referer);
+});
+
 // Delete only thumbnails that belong to the authenticated user.
 router.delete('/library/:id', isAuthenticated, async (req, res) => {
   try {
