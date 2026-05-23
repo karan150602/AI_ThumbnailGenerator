@@ -9,6 +9,7 @@ const thumbnailSchema = new mongoose.Schema({
     required: true
   },
   imageUrl: { type: String, required: true },
+  isFavourite: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now }
 });
 
