@@ -42,7 +42,15 @@
               <%= thumbnail.createdAt.toLocaleDateString() %>
             </p>
           </div>
-          <div class="card-action">
+          <div class="card-action" style="display: flex; gap: 0.5rem; align-items: center;">
+            <form action="/library/<%= thumbnail._id %>/favourite" method="POST">
+              <button type="submit"
+                class="btn-small waves-effect waves-light <%= thumbnail.isFavourite ? 'amber darken-2' : 'grey lighten-1' %>"
+                title="<%= thumbnail.isFavourite ? 'Remove from favourites' : 'Add to favourites' %>">
+                <i class="material-icons"><%= thumbnail.isFavourite ? 'star' : 'star_border' %></i>
+              </button>
+            </form>
+
             <form action="/library/<%= thumbnail._id %>?_method=DELETE" method="POST" class="delete-thumbnail-form">
               <button type="submit" class="btn-small waves-effect waves-light red darken-1">
                 <i class="material-icons left">delete</i>Delete
