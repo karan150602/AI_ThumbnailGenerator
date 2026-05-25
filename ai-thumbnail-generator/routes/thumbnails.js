@@ -20,7 +20,7 @@ router.get('/generate', isAuthenticated, (req, res) => {
   });
 });
 
-// Generate a DALL-E 3 thumbnail on the server and save the result for the user.
+// Generate thumbnail on the server and save the result for the user.
 router.post('/generate', isAuthenticated, async (req, res) => {
   const promptText = (req.body.promptText || '').trim();
   const style = req.body.style;
@@ -38,19 +38,25 @@ router.post('/generate', isAuthenticated, async (req, res) => {
   }
 
   try {
-    const dallePrompt = `${style} style YouTube thumbnail: ${promptText}`;
+    const imagePrompt = `${style} style YouTube thumbnail: ${promptText}`;
+
     const response = await openai.images.generate({
-      model: 'dall-e-3',
-      prompt: dallePrompt,
+      model: 'gpt-image-1',
+      prompt: imagePrompt,
       n: 1,
-      size: '1792x1024'
+      size: '1024x1024'
     });
 
-    const imageUrl = response.data && response.data[0] && response.data[0].url;
+    const imageBase64 =
+      response.data &&
+      response.data[0] &&
+      response.data[0].b64_json;
 
-    if (!imageUrl) {
-      throw new Error('OpenAI did not return an image URL.');
+    if (!imageBase64) {
+      throw new Error('OpenAI did not return image data.');
     }
+
+    const imageUrl = `data:image/png;base64,${imageBase64}`;
 
     await Thumbnail.create({
       userId: req.user._id,
@@ -61,6 +67,7 @@ router.post('/generate', isAuthenticated, async (req, res) => {
 
     req.flash('success', 'Thumbnail generated and saved to your library.');
     res.locals.successMessages = req.flash('success');
+
     res.render('generate', {
       ...renderData,
       imageUrl
@@ -89,7 +96,7 @@ router.get('/library', isAuthenticated, async (req, res) => {
   }
 });
 
-// ⭐ NEW: Toggle favourite status for a thumbnail owned by the current user.
+// Toggle favourite status for a thumbnail owned by the current user.
 router.post('/library/:id/favourite', isAuthenticated, async (req, res) => {
   try {
     const thumbnail = await Thumbnail.findOne({
